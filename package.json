@@ -1,0 +1,20 @@
+{
+  "name": "layouts-and-partials",
+  "version": "1.0.0",
+  "description": "Practicing Layouts and partials",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "layouts-and-partials"
+  },
+  "author": "Shubham Gulik",
+  "license": "ISC",
+  "dependencies": {
+    "git": "^0.1.5",
+    "nodemon": "^2.0.20"
+  }
+}
