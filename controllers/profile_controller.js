@@ -13,6 +13,9 @@ module.exports.profile = function(req,res){
 
 // Load Sign Up page
 module.exports.signup = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile/');
+    }
     return res.render(
         'signup',
         {
@@ -23,6 +26,10 @@ module.exports.signup = function(req,res){
 
 // Load Sign In page
 module.exports.signin = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile/');
+    }
+
     return res.render(
         'signin',
         {
@@ -59,17 +66,27 @@ module.exports.create = function(req,res){
             console.log("User Already Exists.");
             return res.redirect('back');
         }
-    })
-
-
-    
+    })  
 }
 
 // 2: Create Session (Sign In)
 module.exports.createSession = function(req,res){
     //To-Do-Later
+    return res.redirect('/users/profile');
 }
 
 // 3: Show details of signed in user on profile page
 
 // 4: Sign out
+
+module.exports.destroySession = function(req,res){
+
+    // This function is made Asynchrous in latest Release.
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        return res.redirect('/');
+    });
+
+    // req.logout();
+    // return res.redirect('/');
+}
