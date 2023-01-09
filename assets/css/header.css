@@ -9,6 +9,9 @@ header {
   header p {
     margin: 0.5rem;
     padding: 0.5rem; }
+    header p a {
+      text-decoration: none;
+      color: white; }
   header ul {
     list-style: none;
     margin: auto 0;

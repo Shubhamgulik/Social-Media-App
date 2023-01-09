@@ -3,6 +3,26 @@
 
     <div>
         <h1>
-            Codial / <%= desc %>
+            Codial / Home Page
         </h1>
     </div>
+    <section>
+        <form action="/posts/create" id="new-post-form" method="post">
+            <textarea name="content" id="" cols="30" rows="10" placeholder="Type here..." ></textarea>
+            <input type="submit" value="Post">
+        </form>
+
+        <div>
+            <ul>
+                <% for(let post of posts){ %>
+                    <li> 
+                        <p>
+                            <%= post.content %> 
+                            <span>Posted by: </span>
+                        </p>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </section>
+    
