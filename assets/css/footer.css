@@ -1,4 +1,6 @@
 footer {
+  position: relative;
+  bottom: 0%;
   padding: 1rem;
   padding-left: 0.5rem;
   background-color: #757475;
