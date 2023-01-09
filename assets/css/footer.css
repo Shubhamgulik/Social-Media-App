@@ -1,0 +1,23 @@
+footer {
+  padding: 1rem;
+  padding-left: 0.5rem;
+  background-color: #757475;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 1rem;
+  color: #faf8f8;
+  font-weight: bold; }
+  footer p {
+    margin-top: 0rem;
+    margin-right: 1rem; }
+  footer #footer-links {
+    margin-left: 0.5rem;
+    font-weight: 400; }
+    footer #footer-links p {
+      margin: 1rem;
+      margin-top: 0rem;
+      margin-bottom: 0.5rem; }
+    footer #footer-links a {
+      color: white;
+      text-decoration: none; }

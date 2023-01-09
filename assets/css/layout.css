@@ -1,7 +1,6 @@
-body{
-    font-size: 20px;
-}
-h1{
-    text-align: center;
-    /* color: red; */
-}
+body {
+  margin: 0;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; }
+  body #main-layout {
+    height: 100vh; }

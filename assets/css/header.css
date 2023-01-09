@@ -1,0 +1,25 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #1286F8;
+  font-weight: bold;
+  height: 3.5rem;
+  color: white; }
+  header p {
+    margin: 0.5rem;
+    padding: 0.5rem; }
+  header ul {
+    list-style: none;
+    margin: auto 0;
+    padding: 0rem;
+    font-weight: 400; }
+    header ul li {
+      display: inline-block;
+      padding: 0.90rem;
+      height: 100%; }
+      header ul li a {
+        text-decoration: none;
+        color: white; }
+      header ul li:hover {
+        background-color: #00FFFF; }

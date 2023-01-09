@@ -16,6 +16,17 @@ const MongoStore = require('connect-mongo');
 const db = require('./config/mongoose');
 const mongoose = require('mongoose');
 
+//Getting sass library and setting it up
+const sassMiddleware = require('node-sass-middleware')
+
+app.use(sassMiddleware({
+    /* Options */
+    src: "./assets/scss",
+    dest: "./assets/css",
+    debug: true,
+    outputStyle: 'extended',
+    prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+}));
 
 // Extacting styles and scripts into layouts
 app.set('layout extractStyles',true);
