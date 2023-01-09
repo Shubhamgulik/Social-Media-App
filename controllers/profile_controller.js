@@ -71,8 +71,8 @@ module.exports.create = function(req,res){
 
 // 2: Create Session (Sign In)
 module.exports.createSession = function(req,res){
-    //To-Do-Later
-    return res.redirect('/users/profile');
+    
+    return res.redirect('/');
 }
 
 // 3: Show details of signed in user on profile page

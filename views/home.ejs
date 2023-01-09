@@ -7,18 +7,19 @@
         </h1>
     </div>
     <section>
+        <% if(locals.user){ %>
         <form action="/posts/create" id="new-post-form" method="post">
             <textarea name="content" id="" cols="30" rows="10" placeholder="Type here..." ></textarea>
             <input type="submit" value="Post">
         </form>
-
+        <% } %>
         <div>
             <ul>
                 <% for(let post of posts){ %>
                     <li> 
                         <p>
                             <%= post.content %> 
-                            <span>Posted by: </span>
+                            <span>Posted by: <%= post.user.name %> </span>
                         </p>
                     </li>
                 <%}%>
