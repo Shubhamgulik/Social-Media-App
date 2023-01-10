@@ -17,7 +17,15 @@ module.exports.home = function(req,res){
     // });
 
     // Populating the user with each post 
-    Post.find({}).populate('user').exec(function(err,data){
+    Post.find({})
+    .populate('user')
+    .populate({
+        path : 'comments',
+        populate : {
+            path : 'user',
+        }
+    })
+    .exec(function(err,data){
         if(err){console.log("Error in getting data");}
 
         console.log("Here it is: ",data[0].content);  
