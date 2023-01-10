@@ -3,10 +3,26 @@
 
     <div>
         <h1>
-            Codial / <%= desc %>
+            Codial / Profile Page
         </h1>
     </div>
 
-    <p>Name : <%= user.name%></p>
-    <p>Email : <%= user.email%></p>
+   
+
+    <% if(user.id == profile_user.id){ %>
+        <!-- If user matches then show form -->
+        <form action="/users/update/<%= user.id%>" method="post">
+            <input type="text" name="name" value="<%= profile_user.name%>" required><br>
+            <input type="email" name="email" value="<%= profile_user.email%>" required><br>
+            <input type="password" name="password" value="<%= profile_user.password%>" required><br>
+            <input type="submit" value="Update">
+        </form>
+
+    <% }else{ %>
+        <!-- Else show only user information -->
+        <p>Name : <%= user.name%></p>
+        <p>Email : <%= user.email%></p>
+
+    <% } %>
+
 

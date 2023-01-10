@@ -27,16 +27,22 @@ module.exports.home = function(req,res){
     })
     .exec(function(err,data){
         if(err){console.log("Error in getting data");}
+     
+        User.find( {},function(err,users){
+            if(err){console.log("Error in getting list of users");}
+            
+            return res.render(
+                'home',
+                {
+                    title : 'Home Page',
+                    posts : data,
+                    all_users : users,
+                }
+            )
 
-        console.log("Here it is: ",data[0].content);  
+        })
         
-        return res.render(
-            'home',
-            {
-                title : 'Home Page',
-                posts : data,
-            }
-        )
+        
     });
     
     

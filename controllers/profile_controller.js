@@ -2,13 +2,37 @@ const User = require("../models/user")
 
 
 module.exports.profile = function(req,res){
-    return res.render(
-        'profile',
-        {
-            title : 'Profile Page',
-            desc : 'Profile Page',
-        }
-    )
+
+    User.findById(req.params.id, function(err,user){
+        if(err){console.log('Not able to find the user');}
+        console.log("Debug 1");
+        return res.render(
+            'profile',
+            {
+                title : 'Profile Page',
+                profile_user : user,
+            }
+        )
+
+    });
+
+    
+}
+
+module.exports.update = function(req,res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,{
+            name : req.body.name,
+            email : req.body.email,
+            password : req.body.password,
+        },function(err,user) {
+            if(err){console.log("Not able to find user to update");}
+            console.log("Debug 2");
+            return res.redirect('back');
+        })
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
 }
 
 // Load Sign Up page
