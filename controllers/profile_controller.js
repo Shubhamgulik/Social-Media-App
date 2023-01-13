@@ -97,7 +97,7 @@ module.exports.create = async function(req,res){
 
 // 2: Create Session (Sign In)
 module.exports.createSession = function(req,res){
-    
+    req.flash('success',"Logged in successfully!!");
     return res.redirect('/');
 }
 
@@ -106,13 +106,15 @@ module.exports.createSession = function(req,res){
 // 4: Sign out
 
 module.exports.destroySession = function(req,res){
-
+    
+    
     // This function is made Asynchrous in latest Release.
     req.logout(function(err) {
         if (err) { return next(err); }
+        req.flash('success',"Logged out successfully!!");
         return res.redirect('/');
     });
-
+    
     // req.logout();
     // return res.redirect('/');
 }

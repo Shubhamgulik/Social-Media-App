@@ -19,6 +19,10 @@ const mongoose = require('mongoose');
 //Getting sass library and setting it up
 const sassMiddleware = require('node-sass-middleware')
 
+//Getting Flash library
+const flash = require('connect-flash');
+const customFlashMware  = require('./config/flashMiddleware');
+
 app.use(sassMiddleware({
     /* Options */
     src: "./assets/scss",
@@ -82,6 +86,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
+// Always use Flash below passport session, Cox it uses session to store flash message
+app.use(flash());
+app.use(customFlashMware.setFlash);
 // Using express router
 app.use('/',require('./routes'));
 
