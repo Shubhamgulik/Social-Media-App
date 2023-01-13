@@ -1,11 +1,10 @@
 const User = require("../models/user")
 
+//Action to get the user details
+module.exports.profile = async function(req,res){
+    try {
+        let user = await User.findById(req.params.id);
 
-module.exports.profile = function(req,res){
-
-    User.findById(req.params.id, function(err,user){
-        if(err){console.log('Not able to find the user');}
-        console.log("Debug 1");
         return res.render(
             'profile',
             {
@@ -13,26 +12,30 @@ module.exports.profile = function(req,res){
                 profile_user : user,
             }
         )
-
-    });
-
-    
-}
-
-module.exports.update = function(req,res){
-    if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.params.id,{
-            name : req.body.name,
-            email : req.body.email,
-            password : req.body.password,
-        },function(err,user) {
-            if(err){console.log("Not able to find user to update");}
-            console.log("Debug 2");
-            return res.redirect('back');
-        })
-    }else{
-        return res.status(401).send('Unauthorized');
+    } catch (error) {
+        console.log("Error ",error);
+        return;
     }
+}
+//Action to update user profile
+module.exports.update = async function(req,res){
+    try {
+        if(req.user.id == req.params.id){
+            await User.findByIdAndUpdate(req.params.id,{
+                name : req.body.name,
+                email : req.body.email,
+                password : req.body.password, 
+            });
+            return res.redirect('back');
+        }else{
+            return res.status(401).send('Unauthorized');
+        }
+        
+    } catch (error) {
+        console.log("Not able to find user to update",error);
+        return;
+    }
+    
 }
 
 // Load Sign Up page
@@ -65,32 +68,31 @@ module.exports.signin = function(req,res){
 // Four Steps of authentication
 
 // 1: Create User (Sign UP) / Get the signUp data
-module.exports.create = function(req,res){
-    //To-Do-Later
-
-    console.log("In the sign up::",req.body);
-    // console.log()
-    if(req.body.password != req.body.confirm_password){
-        console.log(req.body.password != req.body.confirm_password);
-        console.log("Passwords are not matching...")
-        return res.redirect('back');
-    }
+module.exports.create = async function(req,res){
+   
+    try {
+        console.log("In the sign up::",req.body);
+        // console.log()
+        if(req.body.password != req.body.confirm_password){
+            console.log(req.body.password != req.body.confirm_password);
+            console.log("Passwords are not matching...")
+            return res.redirect('back');
+        }
+        
     
-
-    User.findOne({email: req.body.email},function(err,user){
-        if(err){console.log("Got error");return;}
-
+        let user = await User.findOne({email: req.body.email});  
         if(!user){
-            User.create(req.body,function(err,user){
-                if(err){console.log("Error in signing up user");return;}
-
-                return res.redirect('/users/signin/');
-            })
+            await User.create(req.body);
+            return res.redirect('/users/signin/');
         }else{
             console.log("User Already Exists.");
             return res.redirect('back');
-        }
-    })  
+        }    
+    } catch (error) {
+        console.log("Error in sign up : ",error);
+        return;
+    }
+
 }
 
 // 2: Create Session (Sign In)
