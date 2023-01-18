@@ -18,6 +18,11 @@
             <input type="submit" value="Update">
         </form>
 
+        <form action="/users/upload-avatar/" method="post" enctype="multipart/form-data">
+            <input type="file" name="avatar" />
+            <input type="submit" name="submit" value="upload">
+        </form>
+
     <% }else{ %>
         <!-- Else show only user information -->
         <p>Name : <%= user.name%></p>

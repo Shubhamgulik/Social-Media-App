@@ -4,6 +4,7 @@ const router = express.Router();
 
 const profileController = require('../controllers/profile_controller');
 
+const multer = require('multer');
 
 router.get('/profile/:id',passport.checkAuthentication ,profileController.profile)
 
@@ -11,6 +12,15 @@ router.get('/signup/',profileController.signup);
 router.get('/signin/',profileController.signin);
 router.post('/update/:id',passport.checkAuthentication,profileController.update);
 router.post('/create' ,profileController.create);
+
+// Router to add avatar
+const upload = multer({ dest: 'uploads/users/' })
+router.post('/upload-avatar/',upload.single('avatar'),function(req,res){
+    req.file.destination += req.user.id;
+    console.log("Uploaded file is : ", req.file);
+
+    return res.redirect('back');
+})
 
 // Use passport as a middleware to authenticate user
 

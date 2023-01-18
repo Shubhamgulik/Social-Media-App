@@ -11,9 +11,10 @@
                 url : '/posts/create',
                 data : newPostForm.serialize(),
                 success : function(data){
-                    console.log(data);
+                    
                     let newPost = createPostDOM(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
+                    deletePost($(' .post-delete-button', newPost));
                 },
                 error : function(error){
                     console.log(error.responseText);
@@ -58,7 +59,26 @@
         `)
     }
 
-    
+    //Method to delete the post
+    let deletePost = function(deleteLink){
+        console.log("In the AJAx");
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                method : 'get',
+                url : $(deleteLink).prop('href'),
+                success : function(data){
+                    console.log(data);
+                    console.log("In success function");
+                    $(`#post-${data.data.post_id}`).remove();
+                },
+                error : function(error){
+                    console.log(error.responseText);
+                }
+            });
+        });
+    }
 
     createPost();
 }

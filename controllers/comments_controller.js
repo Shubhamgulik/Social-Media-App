@@ -1,3 +1,4 @@
+const { response } = require('express');
 const Comment = require('../models/comment');
 const Post = require('../models/post')
 // const User = require('../models/user');
@@ -13,7 +14,16 @@ module.exports.create = async function(req,res){
                 })
     
         post.comments.push(comment);
+        console.log("Comment in post : ",comment);
         post.save();
+        if(req.xhr){
+            return res.status(200).json({
+                data : {
+                    comment : comment,
+                },
+                message : 'Comment created',
+            });
+        }
         req.flash('success','Comment added successfully!');
         return res.redirect('/');          
 
@@ -33,6 +43,15 @@ module.exports.destroy = async function(req,res){
             let postId = comment.post;
             comment.remove();
             await Post.findByIdAndUpdate(postId,{ $pull : {'comments' : req.params.id}});
+
+            if(req.xhr){
+                return res.status(200).json({
+                    data : {
+                        comment_id : req.params.id,
+                    },
+                    message : 'Comment Deleted!'
+                });
+            }
             req.flash('success','Comment deleted!');
         }else{
             req.flash('error','You can not delete comment!');
