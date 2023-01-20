@@ -21,13 +21,26 @@ module.exports.profile = async function(req,res){
 module.exports.update = async function(req,res){
     try {
         if(req.user.id == req.params.id){
-            await User.findByIdAndUpdate(req.params.id,{
-                name : req.body.name,
-                email : req.body.email,
-                password : req.body.password, 
-            });
-            return res.redirect('back');
+            let user = await User.findById(req.params.id);
+            
+            User.uploadedAvatar(req,res,function(err){
+                if(err){console.log(err);}
+                
+                user.name = req.body.name
+                user.email = req.body.email
+                user.password = req.body.password 
+                
+                if(req.file){
+                    user.avatar = User.avatarPath + req.file.filename;
+                }
+                // console.log(req.file);
+                console.log(user.avatar);
+                user.save();
+                return res.redirect('back');
+            })
+            // return res.redirect('back');
         }else{
+            req.flash('error','Unauthorized');
             return res.status(401).send('Unauthorized');
         }
         

@@ -11,17 +11,18 @@
 
     <% if(user.id == profile_user.id){ %>
         <!-- If user matches then show form -->
-        <form action="/users/update/<%= user.id%>" method="post">
+        <form action="/users/update/<%= user.id%>" method="post" enctype="multipart/form-data">
             <input type="text" name="name" value="<%= profile_user.name%>" required><br>
             <input type="email" name="email" value="<%= profile_user.email%>" required><br>
             <input type="password" name="password" value="<%= profile_user.password%>" required><br>
+            <input type="file" name="avatar" />
             <input type="submit" value="Update">
         </form>
 
-        <form action="/users/upload-avatar/" method="post" enctype="multipart/form-data">
+        <!-- <form action="/users/upload-avatar/" method="post" enctype="multipart/form-data">
             <input type="file" name="avatar" />
             <input type="submit" name="submit" value="upload">
-        </form>
+        </form> -->
 
     <% }else{ %>
         <!-- Else show only user information -->
