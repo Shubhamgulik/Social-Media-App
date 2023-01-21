@@ -1,4 +1,6 @@
 const User = require("../models/user")
+const path = require('path');
+const fs = require('fs');
 
 //Action to get the user details
 module.exports.profile = async function(req,res){
@@ -19,37 +21,44 @@ module.exports.profile = async function(req,res){
 }
 //Action to update user profile
 module.exports.update = async function(req,res){
-    try {
+    
         if(req.user.id == req.params.id){
-            let user = await User.findById(req.params.id);
-            
-            User.uploadedAvatar(req,res,function(err){
-                if(err){console.log(err);}
+            try {
+                let user = await User.findById(req.params.id);
                 
-                user.name = req.body.name
-                user.email = req.body.email
-                user.password = req.body.password 
-                
-                if(req.file){
-                    user.avatar = User.avatarPath + req.file.filename;
-                }
-                // console.log(req.file);
-                console.log(user.avatar);
-                user.save();
-                return res.redirect('back');
-            })
+                User.uploadedAvatar(req,res,function(err){
+                    if(err){console.log(err);}
+                    
+                    user.name = req.body.name
+                    user.email = req.body.email
+                    user.password = req.body.password 
+                    
+                    if(req.file){
+                        if(user.avatar){
+                            let avatarPathFromDB = path.join(__dirname,'..',user.avatar);
+                            if(fs.existsSync(avatarPathFromDB)){
+                                fs.unlinkSync(avatarPathFromDB);
+                            }
+                        }
+                        user.avatar = User.avatarPath + req.file.filename;
+                    }
+                    user.save();
+                    return res.redirect('back');
+                });
+            }
+            catch (error) {
+                console.log("Not able to find user to update",error);
+                return;
+            }
             // return res.redirect('back');
         }else{
             req.flash('error','Unauthorized');
             return res.status(401).send('Unauthorized');
         }
         
-    } catch (error) {
-        console.log("Not able to find user to update",error);
-        return;
-    }
+    } 
     
-}
+
 
 // Load Sign Up page
 module.exports.signup = function(req,res){

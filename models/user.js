@@ -41,7 +41,6 @@ let storage = multer.diskStorage({
 userSchema.statics.uploadedAvatar = multer({storage : storage}).single('avatar');
 userSchema.statics.avatarPath = AVATAR_PATH;
 
-// const upload = multer({ storage: storage })
 
 // Keep in mind to use comma, we dont have to create object
 const User = mongoose.model('User',userSchema);

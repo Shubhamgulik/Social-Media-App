@@ -9,6 +9,9 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
+// Importing libraries for auth using JWT
+const passportJWT = require('./config/passport-jwt-strategy');
+
 // To store session cookies in persistent storage(mongo store). to avoid clearing cookies every time when server gets restarted
 const MongoStore = require('connect-mongo');
 
@@ -92,6 +95,8 @@ app.use(customFlashMware.setFlash);
 // Using express router
 app.use('/',require('./routes'));
 
+// Make the uploads path available to the browser
+app.use('/uploads',express.static(__dirname+'/uploads'));
 
 
 
