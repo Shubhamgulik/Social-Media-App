@@ -1,4 +1,5 @@
 const express = require('express');
+const { authenticate } = require('passport');
 const passport = require('passport');
 const router = express.Router();
 
@@ -31,5 +32,9 @@ router.post('/create-session/', passport.authenticate(
 
 // Destroy session
 router.get('/sign-out',profileController.destroySession);
+
+// Sign in with google
+router.get('/auth/google',passport.authenticate('google', {scope : ['profile','email']}));
+router.get('/auth/google/callback',passport.authenticate('google', {failureRedirect : '/users/signin/'}), profileController.createSession);
 
 module.exports = router;
