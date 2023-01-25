@@ -9,7 +9,21 @@ module.exports.create = async function(req,res){
             content : req.body.content,
             user : req.user._id,
         });
-
+        console.log("Post after createing : ",post )
+        // post = 
+        // await Posts
+        // .populate(post,{
+        //     path : 'user'
+        // })
+        // .populate(post,{
+        //     path : 'comments',
+        //     populate : {
+        //         path : 'user',
+        //     }
+        // });
+        // post =  post.populate('user','name');
+        post = await post.populate(['user']);
+        console.log("Error because of new code: ",post);
         if(req.xhr){
             return res.status(200).json({
                 data : {

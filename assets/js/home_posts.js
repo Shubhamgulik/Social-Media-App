@@ -11,6 +11,7 @@
                 url : '/posts/create',
                 data : newPostForm.serialize(),
                 success : function(data){
+                    console.log("In the ajax post: ",data);
                     
                     let newPost = createPostDOM(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);

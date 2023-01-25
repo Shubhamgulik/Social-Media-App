@@ -1,7 +1,7 @@
 {
     let createComment = function(){
+        console.log("For first comment");
         let newCommentForm = $('#new-comment-form');
-        
         newCommentForm.submit(function(e){
             e.preventDefault();
 
@@ -12,6 +12,7 @@
                 success : function(data){
                     
                     let newComment = createCommentDOM(data.data.comment);
+                    console.log("In the ajax comment");
                     
                     $('#post-comments-list>ul').prepend(newComment);
                     deleteComment($(' .comment-delete-button',newComment));

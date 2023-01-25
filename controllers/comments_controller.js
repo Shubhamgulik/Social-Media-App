@@ -1,28 +1,42 @@
-const { response } = require('express');
+
 const Comment = require('../models/comment');
 const Post = require('../models/post')
 // const User = require('../models/user');
+const commentMailer = require('../mailers/comment_mailer');
 module.exports.create = async function(req,res){
     
     try {
         let post = await Post.findById(req.body.post,)
- 
-        let comment = await Comment.create({
-                    content : req.body.content,
-                    post : post._id,
-                    user : req.user._id
-                })
-    
-        post.comments.push(comment);
-        console.log("Comment in post : ",comment);
-        post.save();
-        if(req.xhr){
-            return res.status(200).json({
-                data : {
-                    comment : comment,
-                },
-                message : 'Comment created',
-            });
+        if(post){
+            let comment = await Comment.create({
+                        content : req.body.content,
+                        post : post._id,
+                        user : req.user._id
+                    })
+        
+            post.comments.push(comment);
+            
+            post.save();
+            
+            // populating the comment 
+            comment = await comment.populate([
+                {
+                    path : 'user',
+                    select : 'name email',
+                }
+            ]);
+            
+            commentMailer.newComment(comment);  
+            if(req.xhr){
+                
+                console.log("In if lse")
+                return res.status(200).json({
+                    data : {
+                        comment : comment,
+                    },
+                    message : 'Comment created',
+                });
+            }
         }
         req.flash('success','Comment added successfully!');
         return res.redirect('/');          
