@@ -1,8 +1,8 @@
 
-<li id="comment-<%=comment.id%>">                      
+<li id="comment-<%=comment._id%>">                      
     <p>
         <% if(locals.user && (locals.user.id == comment.user.id)){ %>
-            <small><a href="/comments/destroy/<%= comment.id %>">X</a></small>
+            <small><a href="/comments/destroy/<%= comment._id %>">X</a></small> 
         <% } %>
         <%= comment.content %> <br>
         <small>

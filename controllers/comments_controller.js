@@ -26,7 +26,7 @@ module.exports.create = async function(req,res){
                 }
             ]);
             
-            commentMailer.newComment(comment);  
+            // commentMailer.newComment(comment);  
             if(req.xhr){
                 
                 console.log("In if lse")
@@ -59,6 +59,7 @@ module.exports.destroy = async function(req,res){
             await Post.findByIdAndUpdate(postId,{ $pull : {'comments' : req.params.id}});
 
             if(req.xhr){
+                console.log("Requewst is XHR");
                 return res.status(200).json({
                     data : {
                         comment_id : req.params.id,

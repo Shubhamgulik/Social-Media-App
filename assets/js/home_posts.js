@@ -15,6 +15,7 @@
                     
                     let newPost = createPostDOM(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
+                    console.log($(' .post-delete-button', newPost));
                     deletePost($(' .post-delete-button', newPost));
                 },
                 error : function(error){
@@ -62,7 +63,8 @@
 
     //Method to delete the post
     let deletePost = function(deleteLink){
-        console.log("In the AJAx");
+        console.log("In the AJAx: ",deleteLink);
+        console.log("URL is : ", $(deleteLink).prop('href'))
         $(deleteLink).click(function(e){
             e.preventDefault();
 
@@ -81,5 +83,21 @@
         });
     }
 
+    let convertPostsToAjax = function(){
+        $('#posts-list-container>ul>li').each(function(){
+            let self = $(this);
+            console.log(self);
+            let deleteButton = $(' .delete-post-button', self);
+            deletePost(deleteButton);
+
+            // get the post's id by splitting the id attribute
+            let postId = self.prop('id').split("-")[1]
+            new PostComments(postId);
+        });
+    }
+
+
     createPost();
+    convertPostsToAjax();
+
 }

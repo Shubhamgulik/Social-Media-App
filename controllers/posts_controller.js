@@ -11,7 +11,7 @@ module.exports.create = async function(req,res){
         });
         console.log("Post after createing : ",post )
         // post = 
-        // await Posts
+        // await Posts 
         // .populate(post,{
         //     path : 'user'
         // })
