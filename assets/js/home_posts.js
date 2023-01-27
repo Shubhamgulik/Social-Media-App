@@ -84,10 +84,11 @@
     }
 
     let convertPostsToAjax = function(){
-        $('#posts-list-container>ul>li').each(function(){
+        $('#post-list-container>ul>li').each(function(){
             let self = $(this);
-            console.log(self);
-            let deleteButton = $(' .delete-post-button', self);
+            console.log("Self in post : ",self, " Thisss : ",$(this) );
+            // console.log(typeof(this));
+            let deleteButton = $(' .post-delete-button', self);
             deletePost(deleteButton);
 
             // get the post's id by splitting the id attribute

@@ -1,27 +1,46 @@
-{
 
+
+    class PostComments{
+        // constructor is used to initialize the instance of the class whenever a new instance is created
+        constructor(postId){
+            this.postId = postId;
+            this.postContainer = $(`#post-${postId}`);
+            this.newCommentForm = $(`#new-${postId}-comment-form`);
+    
+            this.createComment(postId);
+    
+            let self = this;
+            // call for all the existing comments
+            $(' .delete-comment-button', this.postContainer).each(function(){
+                console.log("Self : ",self," This : ",this );
+                self.deleteComment($(this));
+            });
+        }
     
 
-    let createComment = function(){
+   createComment(postId){
         // console.log("For first comment"); 
-        console.log(this);
-        let newCommentForm = $('#new-comment-form');
-        // -${comment.user._id}
-        newCommentForm.submit(function(e){
-            e.preventDefault();
+        // console.log(this);
+        let pSelf = this;
 
+        // let newCommentForm = $('#new-comment-form');
+        // -${comment.user._id}
+        this.newCommentForm.submit(function(e){
+            e.preventDefault();
+            let self = this;
+            console.log("Pself : ",pSelf , " self : ",self);
             $.ajax({ 
                 method : "POST",
                 url : '/comments/create',
-                data : newCommentForm.serialize(),
+                data : $(self).serialize(),
                 success : function(data){
-                    console.log(data);
-                    let newComment = createCommentDOM(data.data.comment);
-                    console.log("In the ajax comment: ",newComment);
+                    // console.log(data);
+                    let newComment = pSelf.createCommentDOM(data.data.comment);
+                    // console.log("In the ajax comment: ",newComment);
                     
-                    $('#post-comments-list>ul').prepend(newComment);
-                    console.log($(' .comment-delete-button',newComment));
-                    deleteComment($(' .comment-delete-button',newComment));
+                    $(`#post-comments-${postId}`).prepend(newComment);
+                    // console.log($(' .comment-delete-button',newComment));
+                    pSelf.deleteComment($(' .comment-delete-button',newComment));
                 },
                 error : function(error){
                     console.log(error.responseText);
@@ -30,7 +49,7 @@
         })
     }
 
-    let createCommentDOM = function(comment){
+    createCommentDOM(comment){
         return $(`
             <li id="comment-${comment._id}">                      
                 <p>
@@ -44,7 +63,7 @@
         `);
     } 
 
-    let deleteComment = function(deleteLink){
+    deleteComment(deleteLink){
         console.log("Delete link: ",deleteLink);  
         console.log("URL is : ",$(deleteLink).prop('href'));
         $(deleteLink).click(function(e){
@@ -65,5 +84,6 @@
     }
     
 
-    createComment();
+
+    // createComment();
 }
