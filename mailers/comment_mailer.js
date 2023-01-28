@@ -2,7 +2,7 @@ const nodeMailer = require('../config/nodemailer');
 
 
 exports.newComment = (comment) => {
-    console.log("Comment in mailer : ",comment);
+    // console.log("Comment in mailer : ",comment);
     let htmlString = nodeMailer.renderTemplate({comment : comment},'/comments/new_comment.ejs');
 
   // send mail with defined transport object
@@ -15,7 +15,7 @@ exports.newComment = (comment) => {
   },(err,info)=>{
     if(err){console.log("Error in sending email: ",err); return; }
 
-    console.log("Message sent: ",info);
+    console.log("*************Message sent ");
     return;
   });
 
