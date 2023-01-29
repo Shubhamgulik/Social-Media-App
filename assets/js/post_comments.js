@@ -39,6 +39,15 @@
                     // console.log("In the ajax comment: ",newComment);
                     
                     $(`#post-comments-${postId}`).prepend(newComment);
+                    new Noty({
+                        theme: 'relax',
+                        text: "Comment Added",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                     // console.log($(' .comment-delete-button',newComment));
                     pSelf.deleteComment($(' .comment-delete-button',newComment));
                 },
@@ -75,6 +84,15 @@
                 success : function(data){
                     console.log("Preventing default successfully");
                     $(`#comment-${data.data.comment_id}`).remove();
+                    new Noty({
+                        theme: 'relax',
+                        text: "Comment Deleted",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                 },
                 error : function(error){
                     console.log(error.responseText);

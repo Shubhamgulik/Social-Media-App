@@ -4,7 +4,7 @@ const passport = require('passport');
 const router = express.Router();
 
 const profileController = require('../controllers/profile_controller');
-
+const crypto = require('crypto');
 // const multer = require('multer');
 
 router.get('/profile/:id',passport.checkAuthentication ,profileController.profile)
@@ -32,6 +32,15 @@ router.post('/create-session/', passport.authenticate(
 
 // Destroy session
 router.get('/sign-out',profileController.destroySession);
+
+
+// Reset password
+// router.get('/reset-password')
+router.get('/redirect-test', profileController.resetPassword);
+
+router.get('/reset-password/',profileController.generatePassword);
+
+router.post('/reset-password/',profileController.updatePassword);
 
 // Sign in with google
 router.get('/auth/google',passport.authenticate('google', {scope : ['profile','email']}));

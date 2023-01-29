@@ -4,7 +4,7 @@
         let newPostForm = $('#new-post-form');
         // console.log(newPostForm);
         newPostForm.submit(function(e){
-            e.preventDefault();
+            e.preventDefault(); 
 
             $.ajax({
                 method : 'POST',
@@ -15,6 +15,14 @@
                     
                     let newPost = createPostDOM(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
+                        new Noty({
+                        theme: 'relax',
+                        text: "Post Created",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                    }).show();
+
                     console.log($(' .post-delete-button', newPost));
                     deletePost($(' .post-delete-button', newPost));
                 },
@@ -75,6 +83,15 @@
                     console.log(data);
                     console.log("In success function");
                     $(`#post-${data.data.post_id}`).remove();
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post Deleted",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
                 },
                 error : function(error){
                     console.log(error.responseText);

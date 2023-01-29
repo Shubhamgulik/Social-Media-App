@@ -1,6 +1,6 @@
 const nodeMailer = require('../config/nodemailer');
 
-
+ 
 exports.newComment = (comment) => {
     // console.log("Comment in mailer : ",comment);
     let htmlString = nodeMailer.renderTemplate({comment : comment},'/comments/new_comment.ejs');

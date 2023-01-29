@@ -7,7 +7,7 @@ const queue = require('../config/kue');
 const commentEmailWorker = require('../workers/comment_emails_worker');
 module.exports.create = async function(req,res){
     
-    try {
+    try { 
         let post = await Post.findById(req.body.post,)
         if(post){
             let comment = await Comment.create({
@@ -33,7 +33,7 @@ module.exports.create = async function(req,res){
                 if(err){console.log("Error in creating job: ",err); return;}
 
                 console.log("Job Enqueued: ",job.id);
-               
+                
             });
 
             if(req.xhr){

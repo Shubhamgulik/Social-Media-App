@@ -24,6 +24,7 @@ const ejs = require('ejs');
 
   // Rendering the template
   let renderTemplate = (data,relativePath) => {
+    console.log("In the node mailer");
     let mailHtml;
     ejs.renderFile(
         path.join(__dirname,'../views/mailers',relativePath),
@@ -31,6 +32,7 @@ const ejs = require('ejs');
         function(err,template){
             if(err){console.log("Error in rendering template : ",err); return;}
             mailHtml = template;
+            console.log(mailHtml);
         }
     )
     return mailHtml;
