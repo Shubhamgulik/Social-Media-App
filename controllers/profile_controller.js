@@ -5,6 +5,9 @@ const Reset = require("../models/reset_password_schema");
 const crypto = require('crypto');
 const queue = require('../config/kue');
 const resetPassMailer = require('../mailers/reset_password_mailer');
+const resetPassEmailWorker = require('../workers/resetPass_email_worker');
+const Noty = require('noty');
+// import Noty from 'noty';
 //Action to get the user details
 module.exports.profile = async function(req,res){
     try {
@@ -104,7 +107,7 @@ module.exports.resetPassword = async function(req,res){
         let token = await Reset.create({
             user : req.user._id,
             accessToken : randomString, 
-            isValid : true,
+            isValid : true, 
         });    
         token = await token.populate('user');
         console.log("Token : ",token);
@@ -114,9 +117,16 @@ module.exports.resetPassword = async function(req,res){
         //     console.log("Job Enqueued: ",job.id);
         // });
 
-        resetPassMailer.resetPassword(token);
+        // resetPassMailer.resetPassword(token);
+ 
+        let job = queue.create('reset_pass',token).save(function(err){
+            if(err){console.log("Error in creating job: ",err); return;}
 
-        req.flash('success',"Check your mail for reset link!!!");
+                console.log("Job Enqueued: ",job.id); 
+        });
+         
+        req.flash('alert',"Check your mail for reset link!!!");
+        
         return res.redirect('back');
     } catch (error) {
         console.log("Error in sending link : ",error);

@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js" integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/footer.css"> 
     <link rel="stylesheet" href="/css/layout.css">
     <%- style %>
     <title><%= title %></title>
@@ -41,6 +41,16 @@
                 text: "<%= flash.error%>",
                 type: 'error',
                 layOut : 'topRight',
+                timeout : 1500
+                
+            }).show();
+        <% }%>
+        <% if(flash.alert && flash.alert.length > 0){ %>
+                        new Noty({
+                // theme : 'relax',
+                text: "<%= flash.alert%>",
+                type: 'alert',
+                layOut : 'center',
                 timeout : 1500
                 
             }).show();
