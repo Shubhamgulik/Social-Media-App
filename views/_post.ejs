@@ -5,7 +5,11 @@
         <% } %>
         <%= post.content %> 
         <br>
+        
+        <span><a id="like-<%= post._id %>" href="/likes/toggle/?id=<%= post._id%>&type=Post">Likes : <%= post.likes.length %> </a></span>
+        <br>
         <span>Posted by: <%= post.user.name %> </span>
+       
         <br>
         <div id="post-comments" >
             <% if(locals.user){ %>

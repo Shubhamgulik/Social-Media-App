@@ -64,6 +64,7 @@
                 <p>
                     <a class="comment-delete-button" href="/comments/destroy/${comment._id}">X</a>
                     ${comment.content} <br>
+                    <a href="/likes/toggle/?id=${comment._id}&type=Comment">Likes : ${comment.likes.length} </a>
                     <small>
                     ${comment.user.name}
                     </small>

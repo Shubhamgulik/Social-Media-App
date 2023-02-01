@@ -32,7 +32,7 @@ const ejs = require('ejs');
         function(err,template){
             if(err){console.log("Error in rendering template : ",err); return;}
             mailHtml = template;
-            console.log(mailHtml);
+            // console.log(mailHtml);
         }
     )
     return mailHtml;
