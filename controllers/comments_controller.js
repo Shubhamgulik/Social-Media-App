@@ -1,6 +1,7 @@
 
 const Comment = require('../models/comment');
-const Post = require('../models/post')
+const Post = require('../models/post');
+const Like = require('../models/like');
 // const User = require('../models/user');
 const commentMailer = require('../mailers/comment_mailer');
 const queue = require('../config/kue');
@@ -66,7 +67,7 @@ module.exports.destroy = async function(req,res){
             let postId = comment.post;
             comment.remove();
             await Post.findByIdAndUpdate(postId,{ $pull : {'comments' : req.params.id}});
-
+            await Like.deleteMany({'likeable' : req.params.id});
             if(req.xhr){
                 console.log("Requewst is XHR");
                 return res.status(200).json({

@@ -12,7 +12,7 @@
             let self = this;
             // call for all the existing comments
             $(' .delete-comment-button', this.postContainer).each(function(){
-                console.log("Self : ",self," This : ",this );
+                // console.log("Self : ",self," This : ",this );
                 self.deleteComment($(this));
             });
         }
@@ -64,9 +64,11 @@
                 <p>
                     <a class="comment-delete-button" href="/comments/destroy/${comment._id}">X</a>
                     ${comment.content} <br>
-                    <a href="/likes/toggle/?id=${comment._id}&type=Comment">Likes : ${comment.likes.length} </a>
                     <small>
-                    ${comment.user.name}
+                    <a href="/likes/toggle/?id=${comment._id}&type=Comment">${comment.likes.length} likes</a> 
+                    </small> <br>
+                    <small>
+                    Posted by : ${comment.user.name}
                     </small>
                 </p>
             </li>
@@ -74,8 +76,8 @@
     } 
 
     deleteComment(deleteLink){
-        console.log("Delete link: ",deleteLink);  
-        console.log("URL is : ",$(deleteLink).prop('href'));
+        // console.log("Delete link: ",deleteLink);  
+        // console.log("URL is : ",$(deleteLink).prop('href'));
         $(deleteLink).click(function(e){
             e.preventDefault();
             console.log("Preventing default");
@@ -83,7 +85,7 @@
                 method : 'GET',
                 url : $(deleteLink).prop('href'),
                 success : function(data){
-                    console.log("Preventing default successfully");
+                    // console.log("Preventing default successfully");
                     $(`#comment-${data.data.comment_id}`).remove();
                     new Noty({
                         theme: 'relax',

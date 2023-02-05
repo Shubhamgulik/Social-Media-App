@@ -6,7 +6,9 @@
         <%= post.content %> 
         <br>
         
-        <span><a id="like-<%= post._id %>" href="/likes/toggle/?id=<%= post._id%>&type=Post">Likes : <%= post.likes.length %> </a></span>
+        <small>
+            <a class="toggle-like-button" href="/likes/toggle/?id=<%= post._id%>&type=Post" data-likes = "<%= post.likes.length %>" ><%= post.likes.length %> Likes </a>
+        </small>
         <br>
         <span>Posted by: <%= post.user.name %> </span>
        

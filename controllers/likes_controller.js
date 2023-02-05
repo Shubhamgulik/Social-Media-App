@@ -40,19 +40,19 @@ module.exports.toggleLike = async function(req,res){
         }
         if(deleted == true){
             req.flash("success","UnLiked");
-            return res.redirect('back');
+            // return res.redirect('back');
         }else{
             req.flash("success","Liked");
-            return res.redirect('back');
+            // return res.redirect('back');
 
         }
 
-        // return res.json(200,{
-        //     message : "Request Successful",
-        //     data : {
-        //         deleted : deleted,
-        //     }
-        // })
+        return res.status(200).json({
+            message : "Request Successful",
+            data : {
+                deleted : deleted,
+            }
+        })
     } catch (error) {
         console.log("Error in like controller : ",error);
         return res.status('501').json({

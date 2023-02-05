@@ -3,6 +3,7 @@
     let createPost = function(){
         let newPostForm = $('#new-post-form');
         // console.log(newPostForm);
+        
         newPostForm.submit(function(e){
             e.preventDefault(); 
 
@@ -11,7 +12,7 @@
                 url : '/posts/create',
                 data : newPostForm.serialize(),
                 success : function(data){
-                    console.log("In the ajax post: ",data);
+                    // console.log("In the ajax post: ",data);
                     
                     let newPost = createPostDOM(data.data.post);
                     $('#post-list-container>ul').prepend(newPost);
@@ -23,7 +24,7 @@
                         timeout: 1500
                     }).show();
 
-                    console.log($(' .post-delete-button', newPost));
+                    // console.log($(' .post-delete-button', newPost));
                     deletePost($(' .post-delete-button', newPost));
                 },
                 error : function(error){
@@ -46,6 +47,9 @@
                 
                 ${post.content} 
                 <br>
+                <small>
+                 <a class="toggle-like-button" href="/likes/toggle/?id=${post._id}&type=Post" data-likes = "${post.likes.length} %>" >${post.likes.length} Likes </a>
+                 </small> <br>
                 <span>Posted by: ${post.user.name} </span>
                 <br>
                 <div id="post-comments" >
@@ -103,7 +107,7 @@
     let convertPostsToAjax = function(){
         $('#post-list-container>ul>li').each(function(){
             let self = $(this);
-            console.log("Self in post : ",self, " Thisss : ",$(this) );
+            // console.log("Self in post : ",self, " Thisss : ",$(this) );
             // console.log(typeof(this));
             let deleteButton = $(' .post-delete-button', self);
             deletePost(deleteButton);
