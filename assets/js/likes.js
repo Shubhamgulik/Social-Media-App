@@ -21,6 +21,14 @@
                     // console.log(totalLikes);
                     $(target).data('likes',totalLikes);
                     $(target).html(`${totalLikes} likes`);
+                    new Noty({
+                        theme: 'relax',
+                        text: "Disliked",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
                 }else{
                     totalLikes += 1;
                     // console.log(totalLikes);
@@ -28,6 +36,14 @@
                     $(target).data('likes' , totalLikes);
 
                     $(target).html(`${totalLikes} likes`);
+                    new Noty({
+                        theme: 'relax',
+                        text: "Liked",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
 
                 }
                 console.log("Total likes after : ",totalLikes);

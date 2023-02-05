@@ -38,14 +38,14 @@ module.exports.toggleLike = async function(req,res){
             likeable.likes.push(newLike);  
             likeable.save();
         }
-        if(deleted == true){
-            req.flash("success","UnLiked");
-            // return res.redirect('back');
-        }else{
-            req.flash("success","Liked");
-            // return res.redirect('back');
+        // if(deleted == true){
+        //     req.flash("success","UnLiked");
+        //     // return res.redirect('back');
+        // }else{
+        //     req.flash("success","Liked");
+        //     // return res.redirect('back');
 
-        }
+        // }
 
         return res.status(200).json({
             message : "Request Successful",

@@ -18,14 +18,33 @@
                     
                         <%- include('_post');  -%>
                     <%}%>
-                </ul>
+                </ul>   
             
         </div>
     </section>
 
-    <section id="user-friends">
-        <div>
+
+    <section id="users">
+        <% if(locals.user){ %>
+        <div id="user-friends" >
+            <h3>Friends</h3>
             <ul>
+                <% for(friend of me.friends){ %>
+                    <li>
+                        <a href="/users/profile/<%= friend.id %>" target="_blank"><%= friend.name%></a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+        <%}%>
+        <div id="random-users" >
+            <% if(locals.user){ %>
+            <h3>Peoples you may know</h3>
+            <%}else{%>
+            <h3>Other users</h3>
+            <%}%>
+            <ul>
+                
                 <% for(user of all_users){ %>
                     <li>
                         <a href="/users/profile/<%= user.id %>" target="_blank"><%= user.name%></a>
@@ -39,4 +58,5 @@
 <script src="/js/post_comments.js"></script>
 <script src="/js/home_posts.js"></script>
 <script src="/js/likes.js"></script>
+
 

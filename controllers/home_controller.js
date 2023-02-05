@@ -51,15 +51,37 @@ module.exports.home = async function(req,res){
         // .populate('comments')
         .populate('likes'); 
 
-        let users = await User.find({});
+        let all_users = await User.find({});
+        
+        let user = req.user;
+        // user = user.populate(,{
+        //     path : 'friends',
+        //     populate : {
+        //         path : 'name'
+        //     }
+        // });
+        if(req.user){
+            user = await user.populate('friends');
+            console.log(user);
 
-        return res.render(
-        'home',
-        {
-            title : 'Home Page',
-            posts : posts,
-            all_users : users,
-        });
+            
+            return res.render(
+            'home',
+            {
+                title : 'Home Page',
+                posts : posts,
+                me : user,
+                all_users : all_users,
+            });
+        }else{
+            return res.render(
+                'home',
+                {
+                    title : 'Home Page',
+                    posts : posts,
+                    all_users : all_users,
+                });
+        }
     } catch (error) {
         console.log("Error ",error);
         return;

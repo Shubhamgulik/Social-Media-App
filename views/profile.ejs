@@ -17,18 +17,26 @@
             <input type="password" name="password" value="<%= profile_user.password%>" required><br>
             <input type="file" name="avatar" />
             <input type="submit" value="Update">
-        </form>
-
+        </form> 
+ 
         <!-- <form action="/users/upload-avatar/" method="post" enctype="multipart/form-data">
             <input type="file" name="avatar" />
             <input type="submit" name="submit" value="upload">
         </form> -->
-        <a href="/users/redirect-test">checking redirect</a>
+        <a href="/users/redirect-test">Reset password</a>
     <% }else{ %>
         <!-- Else show only user information -->
         <p>Name : <%= profile_user.name%></p>
         <p>Email : <%= profile_user.email%></p>
+        <% if(locals.user.friends.includes(profile_user.id)) {%>
+        <a id="friend" href="/friendship/remove/?from=<%= user.id%>&to=<%= profile_user.id%>"> Remove friend </a>
+        <% }else{ %>
+        <a id="friend" href="/friendship/add/?from=<%= user.id%>&to=<%= profile_user.id%>"> Add friend </a>
+        <% } %>    
+        
 
     <% } %>
 
+  
 
+    <script src="/js/friendship.js"></script>

@@ -125,7 +125,7 @@ module.exports.resetPassword = async function(req,res){
                 console.log("Job Enqueued: ",job.id); 
         });
          
-        req.flash('alert',"Check your mail for reset link!!!");
+        req.flash('success',"Check your mail for reset link!!!");
         
         return res.redirect('back');
     } catch (error) {
