@@ -50,7 +50,7 @@
                 // return res.redirect('back');
             },
             error : function(error){
-                console.log(error.responseText);
+                console.log("Error: ",error.responseText);
                 // return res.redirect('back');
             }
         });

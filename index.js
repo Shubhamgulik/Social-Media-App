@@ -24,6 +24,13 @@ const mongoose = require('mongoose');
 //Getting sass library and setting it up
 const sassMiddleware = require('node-sass-middleware')
 
+//Setting up socket library
+const http = require('http');
+const chatServer = http.createServer(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log("Chat socket is listening on port 5000");
+
 //Getting Flash library
 const flash = require('connect-flash');
 const customFlashMware  = require('./config/flashMiddleware');

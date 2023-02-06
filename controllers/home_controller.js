@@ -62,7 +62,7 @@ module.exports.home = async function(req,res){
         // });
         if(req.user){
             user = await user.populate('friends');
-            console.log(user);
+            // console.log(user);
 
             
             return res.render(
