@@ -1,0 +1,40 @@
+<!-- <link rel="stylesheet" href="/css/chatbox.css">
+<div id="mini-chatbox">
+    <div id="message-area">
+        <div class="send-chat">
+            <p>Hi Sir, Good morning</p>
+        </div>
+        <div class="receive-chat" > 
+            <p>Hi Shubham, how are you?</p>
+        </div>
+    </div>
+    <div id="chat-area">
+        <form action="" method="post">
+            <input id="msg" type="text" name="input-message" placeholder="Type your message...">
+            <input id="sbt" type="submit" value="SEND" >
+        </form>
+    </div>
+</div>  -->
+
+<!-- CHANGE :: Creat the code for chat box -->
+<% if (locals.user){ %>
+	<div id="user-chat-box">
+		<ul id="chat-messages-list">
+			<li class="other-message">
+				<span>Other Message</span>
+			</li>
+			<li class="self-message">
+				<span>
+					Self Message
+				</span>
+				
+			</li>
+
+		</ul>
+		<div id="chat-message-input-container">
+			<input id="chat-message-input" placeholder="Type message here">
+			<button id="send-message">Send</button>
+		</div>
+
+	</div>
+<% } %>
