@@ -6,7 +6,7 @@ const User = require('../models/user');
 //tell passport to use local strategy
 passport.use(new googleStrategy({
     clientID : "233022913384-4vbh6h6323f9j02eu4toujhcgm9u09ir.apps.googleusercontent.com",
-    clientSecret : "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",
+    clientSecret : "*********************",
     callbackURL : "http://localhost:8000/users/auth/google/callback",
 },
     async function(accessToken, refreshToken, profile, done){
